@@ -120,6 +120,8 @@ else
 COMMAND := echo "Nothing to run"
 endif
 
+dir_guard=@mkdir -p $(OBJ_DIR) $(BIN_DIR)
+
 ###############################################################################
 # RULES
 ###############################################################################
@@ -137,26 +139,31 @@ test: $(OBJECT_LIST)
 $(O_POWER_AGENT): $(C_POWER_AGENT) $(H_POWER_AGENT) $(O_PLATFORM) $(O_AGENT)
 	@echo
 	@echo "Building Power agent: $@.c"
+	$(dir_guard)
 	$(CC) $(INCLUDE_DIRS) $(CFLAGS) -c $@.c -o $(OBJ_DIR)/$(notdir $@).o
 
 $(O_RADIO_AGENT): $(C_RADIO_AGENT) $(H_RADIO_AGENT) $(O_PLATFORM) $(O_AGENT)
 	@echo
 	@echo "Building Radio agent: $@.c"
+	$(dir_guard)
 	$(CC) $(INCLUDE_DIRS) $(CFLAGS) -c $@.c -o $(OBJ_DIR)/$(notdir $@).o
 
 $(O_APP_AGENT): $(C_APP_AGENT) $(H_APP_AGENT) $(O_PLATFORM) $(O_AGENT)
 	@echo
 	@echo "Building application agent: $@.c"
+	$(dir_guard)
 	$(CC) $(INCLUDE_DIRS) $(CFLAGS) -c $@.c -o $(OBJ_DIR)/$(notdir $@).o
 
 $(O_DECISION_ENG): $(C_DECISION_ENG) $(H_DECISION_ENG) $(O_PLATFORM)
 	@echo
 	@echo "Building decision engine: $@.c"
+	$(dir_guard)
 	$(CC) $(INCLUDE_DIRS) $(CFLAGS) -c $@.c -o $(OBJ_DIR)/$(notdir $@).o
 
 $(O_TEST): $(C_TEST) $(H_TEST) $(O_PLATFORM)
 	@echo
 	@echo "Building test: $@.c"
+	$(dir_guard)
 	$(CC) $(INCLUDE_DIRS) $(CFLAGS) $(TEST_FLAGS) -c $@.c -o $(OBJ_DIR)/$(notdir $@).o
 
 $(O_AGENT): $(C_AGENT) $(H_AGENT) $(O_PLATFORM)
@@ -167,6 +174,7 @@ $(O_AGENT): $(C_AGENT) $(H_AGENT) $(O_PLATFORM)
 $(O_PLATFORM): $(C_PLATFORM) $(H_PLATFORM)
 	@echo
 	@echo "Building platform: $@.c"
+	$(dir_guard)
 	$(CC) $(INCLUDE_DIRS) $(CFLAGS) $(TEST_FLAGS) -c $@.c -o $(OBJ_DIR)/$(notdir $@).o
 
 clean:
