@@ -1,0 +1,10 @@
+# IDE files
+.vscode
+
+# Doxygen
+docs/Doxygen/html/
+docs/Doxygen/latex/
+
+# Build testing
+*.o
+*.exe
